@@ -1,0 +1,66 @@
+Personal PubSub 1.0
+
+Ben Hammersley
+ben@benhammersley.com
+http://www.benhammersley.com
+
+This version released 19 March 2002
+
+Get the latest version from http://hacks.benhammersley.com/blogging/pubsub/
+
+
+Installation instructions.
+
+1) Ensure you have Perl on your server.
+
+2) Install the following modules:
+
+Frontier::Client
+Frontier::RPC2
+HTTP::Daemon
+HTTP::Date;
+
+3) Create a directory on your server for the PubSub code to go into.
+
+4) CHMOD this directory to be writable.
+
+5) Upload the pubSub scripts into this directory.
+
+6) Edit each of the scripts, changing the User Definable Variables (you'll see them)
+
+The most important one is the line reading "my $subscriberlistpath	= "notifyServer.txt";"
+
+Change this to the path to "notifyServer.txt" - eg my $subscriberlistpath	= "/usr/local/pubsub/notifyServer.txt";
+
+7) Add the cloud tag to your RSS feed, as per the explanation here:
+
+
+A <cloud> has five required attributes: 
+
+domain is the domain name or IP address of the cloud, 
+port is the TCP port that the cloud is running on, 
+path is the location of its responder, 
+registerProcedure is the name of the procedure to call to request notification - in the case of PersonalPubSub, this is "pleaseNotify" 
+and protocol is xml-rpc, soap or http-post, indicating which protocol is to be used - in the case of PersonalPubSub, this is "xml-rpc"
+
+
+Example:
+
+<cloud domain="gbloogle.benhammersley.com" port="8888" path="/RPC2" registerProcedure="pleaseNotify" protocol="xml-rpc" />
+
+
+8) Set the cron to run pubSubStrimmer.pl every hour
+
+9) Set the pubSubListener running. I like to do this with the line
+
+nohup perl pubSubListener.pl
+
+and then killing the terminal window. But that's just me.
+
+10) That's it.
+
+
+
+
+
+
